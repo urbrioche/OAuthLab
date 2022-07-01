@@ -1,6 +1,20 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Authentication
+@{
     ViewData["Title"] = "Privacy Policy";
+    var userId = User.FindFirst("sub")?.Value;
+    var userName = @User.FindFirst("name")?.Value;
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<h2>Hello @userName (@userId)</h2>
+<img src="@(User.FindFirst("picture")?.Value)">
+
+
+<h2>Claims</h2>
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>

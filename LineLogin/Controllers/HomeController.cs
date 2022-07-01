@@ -20,6 +20,11 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
+        if (!(User.Identity?.IsAuthenticated ?? false))
+        {
+            return RedirectToAction("Index", "Login");
+        }
+
         return View();
     }
 
